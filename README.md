@@ -10,7 +10,7 @@ Tested with:
 
 To do a quick test if the app is running:
 
-* <http://http://localhost:8080/hswm/hello>
+* <http://localhost:8080/hswm/hello>
 
 ##### Note for IntelliJ IDEA user: if it looks like the Lombok annotations are not working, check the following in the preferences:
 
