@@ -20,26 +20,19 @@ public class CountryController {
 
     @RequestMapping(value = "/countries", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public
-    @ResponseBody
-    List<Country> getAll() {
+    public @ResponseBody List<Country> getAll() {
         return countryService.getAll();
     }
 
     @RequestMapping(value = "/countries/count", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public
-    @ResponseBody
-    Long count() {
+    public @ResponseBody Long count() {
         return countryService.count();
     }
 
     @RequestMapping(value = "/country/code/{code}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public
-    @ResponseBody
-    Country getCountryByCode(@PathVariable String code) throws CountryNotFoundException {
-
+    public @ResponseBody Country getCountryByCode(@PathVariable String code) throws CountryNotFoundException {
         Country country = countryService.getByCode(code);
         if (country != null) {
             return country;
@@ -50,15 +43,19 @@ public class CountryController {
 
     @RequestMapping(value = "/country/name/{name}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public
-    @ResponseBody
-    Country getCountryByName(@PathVariable String name) throws CountryNotFoundException {
-
+    public @ResponseBody Country getCountryByName(@PathVariable String name) throws CountryNotFoundException {
         Country country = countryService.getByName(name);
         if (country != null) {
             return country;
         } else {
             throw new CountryNotFoundException(name);
         }
+    }
+
+    @RequestMapping(value = "/country", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody Country addCountry(@RequestBody Country country) {
+        Country newCountry = countryService.addCountry(country);
+        return newCountry;
     }
 }

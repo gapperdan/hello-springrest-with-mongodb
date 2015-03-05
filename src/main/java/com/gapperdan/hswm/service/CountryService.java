@@ -13,4 +13,6 @@ public interface CountryService {
     public List<Country> getAll();
 
     public Long count();
+
+    public Country addCountry(Country country);
 }
