@@ -3,6 +3,8 @@ package com.gapperdan.hswm.controller;
 import com.gapperdan.hswm.domain.Country;
 import com.gapperdan.hswm.exception.CountryNotFoundException;
 import com.gapperdan.hswm.service.CountryServiceImpl;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import java.util.List;
 
 @Controller
 @EnableWebMvc
+@Api(value = "country", description = "Country CRUD endpoints", position = 2)
 public class CountryController {
 
     @Autowired
@@ -20,6 +23,7 @@ public class CountryController {
 
     @RequestMapping(value = "/countries", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Get all countries", notes = "Returns all countries!")
     public @ResponseBody List<Country> getAll() {
         return countryService.getAll();
     }

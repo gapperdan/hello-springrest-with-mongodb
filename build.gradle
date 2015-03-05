@@ -11,6 +11,17 @@ tomcatRun {
 
 repositories {
     mavenCentral()
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.2.3'
+    }
 }
 
 dependencies {
@@ -26,7 +37,8 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:2.4.4'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.4'
     compile 'org.projectlombok:lombok:1.16.2'
-    compile 'com.github.fakemongo:fongo:1.6.1'
+    compile 'com.mangofactory:swagger-springmvc:0.9.5'
+    compile 'org.ajar:swagger-spring-mvc-ui:0.4'
 
     testCompile('junit:junit:4.12') {
         exclude group: 'org.hamcrest'
@@ -40,16 +52,6 @@ dependencies {
     tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
             "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
             "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
-}
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.2.3'
-    }
 }
 
 task wrapper(type: Wrapper) {

@@ -16,3 +16,7 @@ To do a quick test if the app is running:
 
 * Compiler > Annotation Processors > check ''Enable annotation processing'
 * Lombok plugin > check 'Enable Lombok support for this project'
+
+##### Swagger doc:
+
+* <http://localhost:8080/sdoc.jsp> (doesn't work 100% yet, have to put in this api-docs url: <http://localhost:8080/hswm/api-docs>
