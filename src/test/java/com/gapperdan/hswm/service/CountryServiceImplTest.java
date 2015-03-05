@@ -66,8 +66,14 @@ public class CountryServiceImplTest {
     }
 
     @Test
-    public void shouldReturnAllCountries_WhenAllCountriesAreRequested() {
+    public void shouldReturnAllCountries_whenAllCountriesAreRequested() {
         when(countryRepository.findAll()).thenReturn(countryList);
         assertThat(2, equalTo(countryList.size()));
+    }
+
+    @Test
+    public void shouldReturnCountOfCountries_whenCountIsRequested() {
+        when(countryRepository.count()).thenReturn(Long.valueOf(countryList.size()));
+        assertThat(Long.valueOf(2), equalTo(Long.valueOf(countryRepository.count())));
     }
 }

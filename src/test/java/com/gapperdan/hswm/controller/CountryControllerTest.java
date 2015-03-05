@@ -70,4 +70,10 @@ public class CountryControllerTest {
         when(countryService.getAll()).thenReturn(countryList);
         assertThat(2, equalTo(countryList.size()));
     }
+
+    @Test
+    public void shouldReturnCountOfCountries_whenCountIsRequested() {
+        when(countryService.count()).thenReturn(Long.valueOf(countryList.size()));
+        assertThat(Long.valueOf(2), equalTo(Long.valueOf(countryService.count())));
+    }
 }

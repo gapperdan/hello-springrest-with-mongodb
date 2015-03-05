@@ -11,4 +11,6 @@ public interface CountryService {
     public Country getByCode(String code);
 
     public List<Country> getAll();
+
+    public Long count();
 }

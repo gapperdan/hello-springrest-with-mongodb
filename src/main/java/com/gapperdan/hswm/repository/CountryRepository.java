@@ -37,5 +37,4 @@ public interface CountryRepository extends MongoRepository<Country, Long> {
         return mongoTemplate.findOne(query, Country.class);
     }
     */
-
 }

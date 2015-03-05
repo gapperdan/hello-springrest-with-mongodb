@@ -26,6 +26,14 @@ public class CountryController {
         return countryService.getAll();
     }
 
+    @RequestMapping(value = "/countries/count", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public
+    @ResponseBody
+    Long count() {
+        return countryService.count();
+    }
+
     @RequestMapping(value = "/country/code/{code}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public
@@ -44,7 +52,7 @@ public class CountryController {
     @ResponseStatus(HttpStatus.OK)
     public
     @ResponseBody
-    Country getCountrByNamey(@PathVariable String name) throws CountryNotFoundException {
+    Country getCountryByName(@PathVariable String name) throws CountryNotFoundException {
 
         Country country = countryService.getByName(name);
         if (country != null) {

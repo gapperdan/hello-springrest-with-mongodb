@@ -1,7 +1,6 @@
 package com.gapperdan.hswm.service;
 
 import com.gapperdan.hswm.domain.Country;
-import com.gapperdan.hswm.exception.CountryNotFoundException;
 import com.gapperdan.hswm.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,5 +27,10 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public List<Country> getAll() {
         return countryRepository.findAll();
+    }
+
+    @Override
+    public Long count() {
+        return countryRepository.count();
     }
 }
