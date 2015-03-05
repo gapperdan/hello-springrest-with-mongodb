@@ -6,11 +6,21 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public class CountryRepository {
+import java.util.List;
 
+@Repository
+public interface CountryRepository extends MongoRepository<Country, Long> {
+
+    Country findByName(String countryName);
+
+    Country findByCode(String countryCode);
+
+    List<Country> findAll();
+
+    /*
     @Autowired
     MongoTemplate mongoTemplate;
 
@@ -26,4 +36,6 @@ public class CountryRepository {
         query.addCriteria(Criteria.where(countriesName).is(name.toUpperCase()));
         return mongoTemplate.findOne(query, Country.class);
     }
+    */
+
 }

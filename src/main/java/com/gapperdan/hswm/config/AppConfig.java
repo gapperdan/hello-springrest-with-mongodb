@@ -1,6 +1,6 @@
 package com.gapperdan.hswm.config;
 
-import com.gapperdan.hswm.service.CountryService;
+import com.gapperdan.hswm.service.CountryServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +12,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 public class AppConfig {
 
     @Bean
-    public CountryService getCountryService() {
-        return new CountryService();
+    public CountryServiceImpl getCountryService() {
+        return new CountryServiceImpl();
     }
 
 }
