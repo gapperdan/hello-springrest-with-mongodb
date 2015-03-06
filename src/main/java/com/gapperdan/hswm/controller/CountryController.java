@@ -3,6 +3,7 @@ package com.gapperdan.hswm.controller;
 import com.gapperdan.hswm.domain.Country;
 import com.gapperdan.hswm.exception.CountryNotFoundException;
 import com.gapperdan.hswm.service.CountryServiceImpl;
+import com.gapperdan.hswm.view.UpdateCountryResource;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,9 +59,21 @@ public class CountryController {
     }
 
     @RequestMapping(value = "/country", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody Country addCountry(@Valid @RequestBody Country country) {
         Country newCountry = countryService.addCountry(country);
         return newCountry;
+    }
+
+    @RequestMapping(value = "country/name/{name}", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody Country updateCountry(@PathVariable String name, @Valid @RequestBody UpdateCountryResource updateCountryResource) throws CountryNotFoundException {
+        Country country = countryService.getByName(name);
+        if (country != null) {
+            country.update(updateCountryResource);
+            return countryService.updateCountry(country);
+        } else {
+            throw new CountryNotFoundException(name);
+        }
     }
 }

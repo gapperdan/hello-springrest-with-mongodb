@@ -1,12 +1,11 @@
 package com.gapperdan.hswm.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gapperdan.hswm.view.UpdateCountryResource;
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,6 +13,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @ApiModel
 @Document(collection = "countries")
 public class Country {
+
+    public Country() {}
 
     @Id
     @JsonIgnore
@@ -43,4 +44,17 @@ public class Country {
     @Setter
     @ApiModelProperty(required = true, value = "country population", position = 4)
     private long population;
+
+    public Country update(UpdateCountryResource updateCountryResource) {
+        if (updateCountryResource.getCapital() != null) {
+            this.capital = updateCountryResource.getCapital();
+        }
+        if (updateCountryResource.getCode() != null) {
+            this.code = updateCountryResource.getCode();
+        }
+        if (updateCountryResource.getPopulation() > 0) {
+            this.population = updateCountryResource.getPopulation();
+        }
+        return this;
+    }
 }

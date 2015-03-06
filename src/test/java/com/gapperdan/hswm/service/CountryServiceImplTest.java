@@ -21,6 +21,7 @@ public class CountryServiceImplTest {
 
     private CountryRepository countryRepository;
     private Country country = new Country();
+    private Country updatedCountry = new Country();
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -82,4 +83,23 @@ public class CountryServiceImplTest {
         when(countryRepository.save(country)).thenReturn(country);
         assertThat(country, equalTo(countryRepository.save(country)));
     }
+
+//    @Test
+//    public void shouldReturnUpdatedCountry_whenUpdateCountryIsSuccessful() {
+//        updatedCountry = new Country();
+//        updatedCountry.setCode("QU");
+//        updatedCountry.setCapital("QUX");
+//        updatedCountry.setPopulation(1);
+//
+//        UpdateCountryResource updateCountryResource = new UpdateCountryResource();
+//        updateCountryResource.setCode("QU");
+//        updateCountryResource.setCapital("QUX");
+//        updateCountryResource.setPopulation(1);
+//
+//        country
+//
+//        when(countryRepository.save(updateCountryResource.toCountry())).thenReturn(updatedCountry);
+//        assertThat(Long.valueOf(1), equalTo(updatedCountry.getPopulation()));
+//        assertThat("QUX", equalTo(updatedCountry.getCapital()));
+//    }
 }

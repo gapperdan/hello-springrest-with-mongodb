@@ -1,11 +1,6 @@
 package com.gapperdan.hswm.repository;
 
 import com.gapperdan.hswm.domain.Country;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +14,8 @@ public interface CountryRepository extends MongoRepository<Country, Long> {
     Country findByCode(String countryCode);
 
     List<Country> findAll();
+
+    Country save(Country country);
 
     /*
     @Autowired

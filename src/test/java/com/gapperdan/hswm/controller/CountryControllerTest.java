@@ -21,6 +21,8 @@ public class CountryControllerTest {
 
     private CountryServiceImpl countryService;
     private Country country;
+    private Country updatedCountry;
+
     List<Country> countryList = new ArrayList<Country>();
 
     @Rule
@@ -82,4 +84,19 @@ public class CountryControllerTest {
         when(countryService.addCountry(country)).thenReturn(country);
         assertThat(country, equalTo(countryService.addCountry(country)));
     }
+
+//    @Test
+//    public void shouldReturnUpdatedCountry_whenUpdateCountryIsSuccessful() {
+//        updatedCountry = new Country();
+//        updatedCountry.setCapital("QUX");
+//        updatedCountry.setPopulation(1);
+//
+//        UpdateCountryResource updateCountryResource = new UpdateCountryResource();
+//        updateCountryResource.setPopulation(1);
+//        updateCountryResource.setCapital("QUX");
+//
+//        when(countryService.updateCountry(updateCountryResource.toCountry())).thenReturn(updatedCountry);
+//        assertThat(Long.valueOf(1), equalTo(updatedCountry.getPopulation()));
+//        assertThat("QUX", equalTo(updatedCountry.getCapital()));
+//    }
 }
