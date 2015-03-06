@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -58,7 +59,7 @@ public class CountryController {
 
     @RequestMapping(value = "/country", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Country addCountry(@RequestBody Country country) {
+    public @ResponseBody Country addCountry(@Valid @RequestBody Country country) {
         Country newCountry = countryService.addCountry(country);
         return newCountry;
     }
