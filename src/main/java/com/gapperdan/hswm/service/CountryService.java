@@ -17,4 +17,6 @@ public interface CountryService {
     public Country create(Country country);
 
     public Country update(Country country);
+
+    public void delete(Country country);
 }

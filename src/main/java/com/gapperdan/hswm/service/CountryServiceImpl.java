@@ -42,4 +42,9 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public Country update(Country country) {
         return countryRepository.save(country); }
+
+    @Override
+    public void delete(Country country) {
+        countryRepository.delete(country);
+    }
 }

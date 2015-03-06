@@ -76,4 +76,16 @@ public class CountryController {
             throw new CountryNotFoundException(name);
         }
     }
+
+    @RequestMapping(value = "country/name/{name}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public @ResponseBody Country deleteCountry(@PathVariable String name) throws CountryNotFoundException {
+        Country country = countryService.getByName(name);
+        if (country != null) {
+            countryService.delete(country);
+        } else {
+            throw new CountryNotFoundException(name);
+        }
+        return null;
+    }
 }

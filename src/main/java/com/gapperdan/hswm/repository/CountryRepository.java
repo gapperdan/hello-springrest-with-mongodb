@@ -17,6 +17,8 @@ public interface CountryRepository extends MongoRepository<Country, Long> {
 
     Country save(Country country);
 
+    void delete(Country country);
+
     /*
     @Autowired
     MongoTemplate mongoTemplate;
