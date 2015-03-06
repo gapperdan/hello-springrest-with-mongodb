@@ -27,10 +27,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    //public @ResponseBody Map<String, Object> handleValidationException(MethodArgumentNotValidException ex) throws IOException {
     public @ResponseBody List<ErrorResource> handleValidationException(MethodArgumentNotValidException ex) throws IOException {
         ErrorResource errorResource;
-        List<ErrorResource> errorResourceList = new ArrayList<ErrorResource>();
+        List<ErrorResource> errorResourceList = new ArrayList<>();
 
         for (ObjectError error : ex.getBindingResult().getFieldErrors()) {
             errorResource = new ErrorResource();
