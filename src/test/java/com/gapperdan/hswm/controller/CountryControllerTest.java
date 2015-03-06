@@ -3,6 +3,7 @@ package com.gapperdan.hswm.controller;
 import com.gapperdan.hswm.domain.Country;
 import com.gapperdan.hswm.exception.CountryNotFoundException;
 import com.gapperdan.hswm.service.CountryServiceImpl;
+import com.gapperdan.hswm.view.UpdateCountryResource;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -81,22 +82,28 @@ public class CountryControllerTest {
 
     @Test
     public void shouldReturnNewCountry_whenAddNewCountryIsSuccessful() {
-        when(countryService.addCountry(country)).thenReturn(country);
-        assertThat(country, equalTo(countryService.addCountry(country)));
+        when(countryService.create(country)).thenReturn(country);
+        assertThat(country, equalTo(countryService.create(country)));
     }
 
-//    @Test
-//    public void shouldReturnUpdatedCountry_whenUpdateCountryIsSuccessful() {
-//        updatedCountry = new Country();
-//        updatedCountry.setCapital("QUX");
-//        updatedCountry.setPopulation(1);
-//
-//        UpdateCountryResource updateCountryResource = new UpdateCountryResource();
-//        updateCountryResource.setPopulation(1);
-//        updateCountryResource.setCapital("QUX");
-//
-//        when(countryService.updateCountry(updateCountryResource.toCountry())).thenReturn(updatedCountry);
-//        assertThat(Long.valueOf(1), equalTo(updatedCountry.getPopulation()));
-//        assertThat("QUX", equalTo(updatedCountry.getCapital()));
-//    }
+    @Test
+    public void shouldReturnUpdatedCountry_whenUpdateCountryIsSuccessful() {
+        updatedCountry = country;
+        updatedCountry.setCode("QU");
+        updatedCountry.setCapital("QUX");
+        updatedCountry.setPopulation(1);
+
+        UpdateCountryResource updateCountryResource = new UpdateCountryResource();
+        updateCountryResource.setCode("QU");
+        updateCountryResource.setCapital("QUX");
+        updateCountryResource.setPopulation(1);
+
+        country.update(updateCountryResource);
+
+        when(countryService.update(country)).thenReturn(updatedCountry);
+        assertThat(Long.valueOf(1), equalTo(updatedCountry.getPopulation()));
+        assertThat("QUX", equalTo(updatedCountry.getCapital()));
+        assertThat("FOO", equalTo(updatedCountry.getName()));
+        assertThat("1", equalTo(updatedCountry.getId()));
+    }
 }

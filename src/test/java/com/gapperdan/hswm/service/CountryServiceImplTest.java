@@ -3,6 +3,7 @@ package com.gapperdan.hswm.service;
 import com.gapperdan.hswm.domain.Country;
 import com.gapperdan.hswm.exception.CountryNotFoundException;
 import com.gapperdan.hswm.repository.CountryRepository;
+import com.gapperdan.hswm.view.UpdateCountryResource;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -31,6 +32,7 @@ public class CountryServiceImplTest {
     public void setup() {
         countryRepository = mock(CountryRepository.class);
         country = new Country();
+        country.setId("1");
         country.setName("FOO");
         country.setCapital("BAR");
         country.setCode("FF");
@@ -58,7 +60,6 @@ public class CountryServiceImplTest {
         assertThat(Long.valueOf(0), equalTo(country.getPopulation()));
     }
 
-
     @Test
     public void shouldThrowCountryNotFoundException_whenCountryNameIsNotFound() {
         when(countryRepository.findByName("BAZ")).thenThrow(CountryNotFoundException.class);
@@ -84,22 +85,24 @@ public class CountryServiceImplTest {
         assertThat(country, equalTo(countryRepository.save(country)));
     }
 
-//    @Test
-//    public void shouldReturnUpdatedCountry_whenUpdateCountryIsSuccessful() {
-//        updatedCountry = new Country();
-//        updatedCountry.setCode("QU");
-//        updatedCountry.setCapital("QUX");
-//        updatedCountry.setPopulation(1);
-//
-//        UpdateCountryResource updateCountryResource = new UpdateCountryResource();
-//        updateCountryResource.setCode("QU");
-//        updateCountryResource.setCapital("QUX");
-//        updateCountryResource.setPopulation(1);
-//
-//        country
-//
-//        when(countryRepository.save(updateCountryResource.toCountry())).thenReturn(updatedCountry);
-//        assertThat(Long.valueOf(1), equalTo(updatedCountry.getPopulation()));
-//        assertThat("QUX", equalTo(updatedCountry.getCapital()));
-//    }
+    @Test
+    public void shouldReturnUpdatedCountry_whenUpdateCountryIsSuccessful() {
+        updatedCountry = country;
+        updatedCountry.setCode("QU");
+        updatedCountry.setCapital("QUX");
+        updatedCountry.setPopulation(1);
+
+        UpdateCountryResource updateCountryResource = new UpdateCountryResource();
+        updateCountryResource.setCode("QU");
+        updateCountryResource.setCapital("QUX");
+        updateCountryResource.setPopulation(1);
+
+        country.update(updateCountryResource);
+
+        when(countryRepository.save(country)).thenReturn(updatedCountry);
+        assertThat(Long.valueOf(1), equalTo(updatedCountry.getPopulation()));
+        assertThat("QUX", equalTo(updatedCountry.getCapital()));
+        assertThat("FOO", equalTo(updatedCountry.getName()));
+        assertThat("1", equalTo(updatedCountry.getId()));
+    }
 }

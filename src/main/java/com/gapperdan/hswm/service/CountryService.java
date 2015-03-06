@@ -14,7 +14,7 @@ public interface CountryService {
 
     public Long count();
 
-    public Country addCountry(Country country);
+    public Country create(Country country);
 
-    public Country updateCountry(Country country);
+    public Country update(Country country);
 }

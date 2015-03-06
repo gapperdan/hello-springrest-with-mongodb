@@ -61,7 +61,7 @@ public class CountryController {
     @RequestMapping(value = "/country", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody Country addCountry(@Valid @RequestBody Country country) {
-        Country newCountry = countryService.addCountry(country);
+        Country newCountry = countryService.create(country);
         return newCountry;
     }
 
@@ -71,7 +71,7 @@ public class CountryController {
         Country country = countryService.getByName(name);
         if (country != null) {
             country.update(updateCountryResource);
-            return countryService.updateCountry(country);
+            return countryService.update(country);
         } else {
             throw new CountryNotFoundException(name);
         }
