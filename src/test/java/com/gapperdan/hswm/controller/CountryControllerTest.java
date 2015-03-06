@@ -76,4 +76,10 @@ public class CountryControllerTest {
         when(countryService.count()).thenReturn(Long.valueOf(countryList.size()));
         assertThat(Long.valueOf(2), equalTo(Long.valueOf(countryService.count())));
     }
+
+    @Test
+    public void shouldReturnNewCountry_whenAddNewCountryIsSuccessful() {
+        when(countryService.addCountry(country)).thenReturn(country);
+        assertThat(country, equalTo(countryService.addCountry(country)));
+    }
 }

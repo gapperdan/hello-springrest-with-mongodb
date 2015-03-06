@@ -76,4 +76,10 @@ public class CountryServiceImplTest {
         when(countryRepository.count()).thenReturn(Long.valueOf(countryList.size()));
         assertThat(Long.valueOf(2), equalTo(Long.valueOf(countryRepository.count())));
     }
+
+    @Test
+    public void shouldReturnNewCountry_whenAddNewCountryIsSuccessful() {
+        when(countryRepository.save(country)).thenReturn(country);
+        assertThat(country, equalTo(countryRepository.save(country)));
+    }
 }
