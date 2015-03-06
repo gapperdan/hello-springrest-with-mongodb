@@ -34,6 +34,7 @@ public class CountryControllerTest {
         countryService = mock(CountryServiceImpl.class);
 
         country = new Country();
+        country.setId("1");
         country.setName("FOO");
         country.setCapital("BAR");
         country.setCode("FF");
