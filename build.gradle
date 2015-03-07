@@ -55,6 +55,18 @@ dependencies {
             "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
 }
 
+test {
+    testLogging.showStandardStreams = true
+
+    beforeTest { descriptor ->
+        logger.lifecycle("" + descriptor)
+    }
+
+    onOutput { descriptor, event ->
+        logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+    }
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '1.10'
 }
