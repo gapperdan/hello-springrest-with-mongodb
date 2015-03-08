@@ -60,7 +60,7 @@ public class CountryController {
 
     @RequestMapping(value = "/country", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody Country addCountry(@Valid @RequestBody Country country) {
+    public @ResponseBody Country createCountry(@Valid @RequestBody Country country) {
         Country newCountry = countryService.create(country);
         return newCountry;
     }
