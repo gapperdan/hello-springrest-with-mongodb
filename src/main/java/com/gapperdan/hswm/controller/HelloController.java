@@ -1,5 +1,6 @@
 package com.gapperdan.hswm.controller;
 
+import com.gapperdan.hswm.domain.Hello;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
@@ -14,18 +15,20 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Controller
 @EnableWebMvc
-@Api(value = "hello", description = "Hello world!", position = 1)
+@Api(value = "hello", description = "Hello world!")
 public class HelloController {
 
     static final Logger logger = LogManager.getLogger(HelloController.class.getName());
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     @ApiOperation(value = "get hello")
-    public String hello() {
+    public @ResponseBody Hello hello() {
         logger.info("inside HelloController");
-        return "world!";
+        Hello hello = new Hello();
+        hello.setHello("Hello");
+        hello.setWorld("world!");
+        return hello;
     }
 
 }
