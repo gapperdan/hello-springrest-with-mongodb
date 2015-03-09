@@ -1,6 +1,7 @@
 package com.gapperdan.hswm.config;
 
 import com.gapperdan.hswm.service.CountryServiceImpl;
+import com.gapperdan.hswm.view.ErrorResource;
 import com.mangofactory.swagger.plugin.EnableSwagger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,5 +18,8 @@ public class AppConfig {
     public CountryServiceImpl getCountryService() {
         return new CountryServiceImpl();
     }
+
+    @Bean
+    public ErrorResource getErrorResource() { return new ErrorResource(); }
 
 }
