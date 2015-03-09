@@ -1,6 +1,7 @@
 package com.gapperdan.hswm.exception;
 
 import com.gapperdan.hswm.view.ErrorResource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -39,5 +41,16 @@ public class GlobalExceptionHandler {
         }
 
         return errorResourceList;
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+    public @ResponseBody ErrorResource handleServiceException(Exception ex) {
+        ErrorResource errorResource = new ErrorResource();
+        errorResource.setCode(HttpStatus.SERVICE_UNAVAILABLE.toString());
+        errorResource.setMessage("Service is currently unavailable, please try again later.");
+        log.error("Service error: "+ex.getMessage());
+
+        return errorResource;
     }
 }
