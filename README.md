@@ -6,7 +6,7 @@ Tested with:
 * Tomcat 7.0.59
 * Please see _build.gradle_ for the other dependencies
 
-### To run using the tomcat-plugin:
+### To run using the gretty plugin (<https://github.com/akhikhl/gretty>)
 > ./gradlew tomcatRun
 
 To do a quick test if the app is running:

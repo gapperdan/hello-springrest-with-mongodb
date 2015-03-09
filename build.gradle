@@ -3,13 +3,7 @@ defaultTasks 'clean', 'build'
 
 apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'tomcat'
-
-tomcatRun {
-    httpPort = 8080
-    stopPort = 8091
-    contextPath = ''
-}
+apply plugin: 'org.akhikhl.gretty'
 
 repositories {
     mavenCentral()
@@ -22,8 +16,13 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.2.3'
+        classpath 'org.akhikhl.gretty:gretty:+'
     }
+}
+
+gretty {
+    port=8080
+    contextPath=''
 }
 
 dependencies {
@@ -52,10 +51,6 @@ dependencies {
         exclude group: 'org.hamcrest'
     }
 
-    def tomcatVersion = '7.0.59'
-    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
-            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
-            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
 }
 
 test {
