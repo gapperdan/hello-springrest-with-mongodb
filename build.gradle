@@ -20,6 +20,13 @@ buildscript {
     }
 }
 
+sourceSets {
+    main {
+        output.resourcesDir = 'build/classes/resources'
+        output.classesDir   = 'build/classes'
+    }
+}
+
 gretty {
     port=8080
     contextPath=''
@@ -52,7 +59,6 @@ dependencies {
     testCompile('org.mockito:mockito-all:1.9.5') {
         exclude group: 'org.hamcrest'
     }
-
 }
 
 test {
