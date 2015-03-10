@@ -55,10 +55,15 @@ public class CountryController {
 
     @RequestMapping(value = "/countries/code/{code}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Country getCountryByCode(@PathVariable String code) throws CountryNotFoundException {
+    public @ResponseBody ViewCountryResource getCountryByCode(@PathVariable String code) throws CountryNotFoundException {
         Country country = countryService.getByCode(code);
         if (country != null) {
-            return country;
+            ViewCountryResource viewCountryResource = new ViewCountryResource(country);
+            Link linkByName = linkTo(methodOn(CountryController.class).getCountryByName(country.getName())).withRel("countries").withSelfRel();
+            Link linkByCode = linkTo(methodOn(CountryController.class).getCountryByCode(country.getCode())).withRel("countries").withSelfRel();
+            viewCountryResource.add(linkByName);
+            viewCountryResource.add(linkByCode);
+            return viewCountryResource;
         } else {
             throw new CountryNotFoundException(code);
         }
@@ -66,10 +71,15 @@ public class CountryController {
 
     @RequestMapping(value = "/countries/name/{name}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Country getCountryByName(@PathVariable String name) throws CountryNotFoundException {
+    public @ResponseBody ViewCountryResource getCountryByName(@PathVariable String name) throws CountryNotFoundException {
         Country country = countryService.getByName(name);
         if (country != null) {
-            return country;
+            ViewCountryResource viewCountryResource = new ViewCountryResource(country);
+            Link linkByName = linkTo(methodOn(CountryController.class).getCountryByName(country.getName())).withRel("countries").withSelfRel();
+            Link linkByCode = linkTo(methodOn(CountryController.class).getCountryByCode(country.getCode())).withRel("countries").withSelfRel();
+            viewCountryResource.add(linkByName);
+            viewCountryResource.add(linkByCode);
+            return viewCountryResource;
         } else {
             throw new CountryNotFoundException(name);
         }
@@ -77,18 +87,36 @@ public class CountryController {
 
     @RequestMapping(value = "/countries", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody Country createCountry(@Valid @RequestBody Country country) {
+    public @ResponseBody ViewCountryResource createCountry(@Valid @RequestBody Country country) {
+        ViewCountryResource viewCountryResource = null;
         Country newCountry = countryService.create(country);
-        return newCountry;
+
+        if (newCountry != null) {
+            viewCountryResource = new ViewCountryResource(country);
+            Link linkByName = linkTo(methodOn(CountryController.class).getCountryByName(country.getName())).withRel("countries").withSelfRel();
+            Link linkByCode = linkTo(methodOn(CountryController.class).getCountryByCode(country.getCode())).withRel("countries").withSelfRel();
+            viewCountryResource.add(linkByName);
+            viewCountryResource.add(linkByCode);
+        }
+        return viewCountryResource;
     }
 
     @RequestMapping(value = "countries/name/{name}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Country updateCountry(@PathVariable String name, @Valid @RequestBody UpdateCountryResource updateCountryResource) throws CountryNotFoundException {
+    public @ResponseBody ViewCountryResource updateCountry(@PathVariable String name, @Valid @RequestBody UpdateCountryResource updateCountryResource) throws CountryNotFoundException {
+        ViewCountryResource viewCountryResource = null;
         Country country = countryService.getByName(name);
+
         if (country != null) {
             country.update(updateCountryResource);
-            return countryService.update(country);
+            if (countryService.update(country) != null) {
+                viewCountryResource = new ViewCountryResource(country);
+                Link linkByName = linkTo(methodOn(CountryController.class).getCountryByName(country.getName())).withRel("countries").withSelfRel();
+                Link linkByCode = linkTo(methodOn(CountryController.class).getCountryByCode(country.getCode())).withRel("countries").withSelfRel();
+                viewCountryResource.add(linkByName);
+                viewCountryResource.add(linkByCode);
+            }
+            return viewCountryResource;
         } else {
             throw new CountryNotFoundException(name);
         }
