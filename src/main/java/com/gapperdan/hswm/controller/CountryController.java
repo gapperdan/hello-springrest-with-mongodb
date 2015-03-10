@@ -23,7 +23,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Controller
 @EnableWebMvc
-@Api(value = "country", description = "Country CRUD endpoints", position = 2)
+@Api(value = "countries", description = "Country CRUD endpoints", position = 2)
 public class CountryController {
 
     @Autowired
@@ -53,7 +53,7 @@ public class CountryController {
         return countryService.count();
     }
 
-    @RequestMapping(value = "/country/code/{code}", method = RequestMethod.GET)
+    @RequestMapping(value = "/countries/code/{code}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Country getCountryByCode(@PathVariable String code) throws CountryNotFoundException {
         Country country = countryService.getByCode(code);
@@ -64,7 +64,7 @@ public class CountryController {
         }
     }
 
-    @RequestMapping(value = "/country/name/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/countries/name/{name}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Country getCountryByName(@PathVariable String name) throws CountryNotFoundException {
         Country country = countryService.getByName(name);
@@ -75,14 +75,14 @@ public class CountryController {
         }
     }
 
-    @RequestMapping(value = "/country", method = RequestMethod.POST)
+    @RequestMapping(value = "/countries", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody Country createCountry(@Valid @RequestBody Country country) {
         Country newCountry = countryService.create(country);
         return newCountry;
     }
 
-    @RequestMapping(value = "country/name/{name}", method = RequestMethod.POST)
+    @RequestMapping(value = "countries/name/{name}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Country updateCountry(@PathVariable String name, @Valid @RequestBody UpdateCountryResource updateCountryResource) throws CountryNotFoundException {
         Country country = countryService.getByName(name);
@@ -94,7 +94,7 @@ public class CountryController {
         }
     }
 
-    @RequestMapping(value = "country/name/{name}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "countries/name/{name}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public @ResponseBody Country deleteCountry(@PathVariable String name) throws CountryNotFoundException {
         Country country = countryService.getByName(name);
