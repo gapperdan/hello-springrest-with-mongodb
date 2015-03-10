@@ -25,4 +25,6 @@ To do a quick test if the app is running:
 
 ##### See Swagger documentation for endpoints
 
-* <http://localhost:8080/sdoc.jsp> (doesn't work 100% yet, have to put in this api-docs url: <http://localhost:8080/hswm/api-docs>
+* <http://localhost:8080/sdoc.jsp> (doesn't work 100% yet, have to put in this api-docs url: <http://localhost:8080/hswm/api-docs>)
+
+* Make sure you have a local mongo running on **localhost:27017**
