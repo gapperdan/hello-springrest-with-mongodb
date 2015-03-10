@@ -37,8 +37,10 @@ public class CountryController {
         List<ViewCountryResource> viewCountryResourceList = new ArrayList<>(countryList.size());
         for (Country country : countryList) {
             ViewCountryResource viewCountryResource = new ViewCountryResource(country);
-            Link detail = linkTo(methodOn(CountryController.class).getCountryByName(country.getName())).withRel("countries").withSelfRel();
-            viewCountryResource.add(detail);
+            Link linkByName = linkTo(methodOn(CountryController.class).getCountryByName(country.getName())).withRel("countries").withSelfRel();
+            Link linkByCode = linkTo(methodOn(CountryController.class).getCountryByCode(country.getCode())).withRel("countries").withSelfRel();
+            viewCountryResource.add(linkByName);
+            viewCountryResource.add(linkByCode);
             viewCountryResourceList.add(viewCountryResource);
         }
 
