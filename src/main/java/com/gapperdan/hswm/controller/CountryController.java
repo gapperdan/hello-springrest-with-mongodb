@@ -4,16 +4,22 @@ import com.gapperdan.hswm.domain.Country;
 import com.gapperdan.hswm.exception.CountryNotFoundException;
 import com.gapperdan.hswm.service.CountryServiceImpl;
 import com.gapperdan.hswm.view.UpdateCountryResource;
+import com.gapperdan.hswm.view.ViewCountryResource;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Controller
 @EnableWebMvc
@@ -26,8 +32,17 @@ public class CountryController {
     @RequestMapping(value = "/countries", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Get all countries", notes = "Returns all countries!")
-    public @ResponseBody List<Country> getAll() {
-        return countryService.getAll();
+    public @ResponseBody List<ViewCountryResource> getAll() {
+        List<Country> countryList = countryService.getAll();
+        List<ViewCountryResource> viewCountryResourceList = new ArrayList<>(countryList.size());
+        for (Country country : countryList) {
+            ViewCountryResource viewCountryResource = new ViewCountryResource(country);
+            Link detail = linkTo(methodOn(CountryController.class).getCountryByName(country.getName())).withRel("countries").withSelfRel();
+            viewCountryResource.add(detail);
+            viewCountryResourceList.add(viewCountryResource);
+        }
+
+        return viewCountryResourceList;
     }
 
     @RequestMapping(value = "/countries/count", method = RequestMethod.GET)

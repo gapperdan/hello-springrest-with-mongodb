@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
-@PropertySource("classpath:application.properties")//throws warning: cannot find annotation method value()... -> requires Java 8
+@PropertySource("classpath:application.properties")//TODO: throws warning: cannot find annotation method value()... -> requires Java 8
 public class PropertiesConfig {
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
