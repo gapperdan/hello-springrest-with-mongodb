@@ -9,15 +9,15 @@ import java.util.List;
 @Repository
 public interface CountryRepository extends MongoRepository<Country, Long> {
 
-    Country findByName(String countryName);
+    public Country findByName(String countryName);
 
-    Country findByCode(String countryCode);
+    public Country findByCode(String countryCode);
 
-    List<Country> findAll();
+    public List<Country> findAll();
 
-    Country save(Country country);
+    public Country save(Country country);
 
-    void delete(Country country);
+    public void delete(Country country);
 
     /*
     @Autowired

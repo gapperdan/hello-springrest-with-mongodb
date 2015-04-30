@@ -1,6 +1,7 @@
 package com.gapperdan.hswm.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gapperdan.hswm.view.UpdateCountryResource;
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
@@ -12,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @ApiModel
 @Document(collection = "countries")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Country {
 
     public Country() {}
